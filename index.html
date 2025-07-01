@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Spa Self-Care Center - Business Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f0f0f0;
+            --accent: #d4af37;
+            --success: #4CAF50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --text: #333;
+            --light-bg: #f9f9f9;
+            --border: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --royal-gold: #d4af37;
+            --royal-purple: #6b46c1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--royal-purple) 100%);
+            color: white;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--royal-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .header .tagline {
+            font-size: 14px;
+            color: var(--royal-gold);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .nav-tab.active {
+            background: var(--royal-gold);
+            color: var(--primary);
+            border-color: var(--royal-gold);
+        }
+
+        .nav-tab:hover {
+            border-color: var(--royal-gold);
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--royal-purple);
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .card.gold {
+            border-top: 4px solid var(--royal-gold);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--royal-gold) 0%, var(--royal-purple) 100%);
+            transition: width 0.3s;
+        }
+
+        /* Forms */
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--royal-gold);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--royal-gold);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #b8941f;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--text);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* Client List */
+        .client-list {
+            margin-top: 20px;
+        }
+
+        .client-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .client-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-color: var(--royal-gold);
+        }
+
+        .client-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .client-details {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .client-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-oracle {
+            background: var(--royal-gold);
+            color: var(--primary);
+        }
+
+        .badge-folical {
+            background: var(--royal-purple);
+            color: white;
+        }
+
+        .badge-magic {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Membership Packages */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--royal-gold);
+        }
+
+        .package-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--royal-purple);
+        }
+
+        .package-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--royal-gold);
+            margin: 20px 0;
+        }
+
+        .package-features {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .package-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            list-style: none;
+        }
+
+        /* Financial Summary */
+        .financial-summary {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .summary-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--royal-purple);
+            margin-top: 5px;
+        }
+
+        /* Bucket Allocation */
+        .bucket-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .bucket-item {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 20px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .bucket-item:hover {
+            border-color: var(--royal-gold);
+        }
+
+        .bucket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .bucket-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .bucket-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--royal-purple);
+        }
+
+        .bucket-target {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Service Icons */
+        .service-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--royal-gold);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        /* Monthly History */
+        .month-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .month-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .month-btn.active {
+            background: var(--royal-gold);
+            color: var(--primary);
+            border-color: var(--royal-gold);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .nav-tabs {
+                gap: 5px;
+            }
+
+            .nav-tab {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .card-value {
+                font-size: 28px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hidden sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Export button */
+        .export-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--royal-gold);
+            color: var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px;
+        }
+
+        .export-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Historical Data Table */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table th {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--royal-purple);
+        }
+
+        .history-table tr:hover {
+            background: var(--light-bg);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>King Spa Self-Care Center</h1>
+        <div class="subtitle">Where Legacy Meets Luxury</div>
+        <div class="tagline">"It's Not a Haircut, It's an Image"</div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('dashboard')">Dashboard</button>
+            <button class="nav-tab" onclick="showSection('quick-entry')">Quick Entry</button>
+            <button class="nav-tab" onclick="showSection('clients')">Clients</button>
+            <button class="nav-tab" onclick="showSection('memberships')">Memberships</button>
+            <button class="nav-tab" onclick="showSection('finances')">Finances</button>
+            <button class="nav-tab" onclick="showSection('history')">History</button>
+            <button class="nav-tab" onclick="showSection('settings')">Settings</button>
+        </nav>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <div class="dashboard-grid">
+                <div class="card gold">
+                    <div class="card-title">Today's Income</div>
+                    <div class="card-value" id="todayIncome">$0</div>
+                    <div class="card-subtitle"><span id="todayClients">0</span> kings served</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">This Week</div>
+                    <div class="card-value" id="weekIncome">$0</div>
+                    <div class="card-subtitle"><span id="weekClients">0</span> transformations</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Monthly Progress</div>
+                    <div class="card-value" id="monthlyProgress">$0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="monthlyProgressBar" style="width: 0%"></div>
+                    </div>
+                    <div class="card-subtitle">$<span id="monthlyProgressAmount">0</span> of $<span id="monthlyGoal">3000</span> target</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Active Memberships</div>
+                    <div class="card-value" id="activeMemberships">0</div>
+                    <div class="card-subtitle">Recurring revenue: $<span id="recurringRevenue">0</span>/mo</div>
+                </div>
+            </div>
+
+            <div class="financial-summary">
+                <h2>Current Financial Status</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Cash on Hand</div>
+                        <div class="summary-value" id="cashBalance">$0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Digital Balance</div>
+                        <div class="summary-value" id="digitalBalance">$0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Total Balance</div>
+                        <div class="summary-value" id="totalBalance">$0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Pending Obligations</div>
+                        <div class="summary-value" id="pendingObligations">$0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Financial Envelopes</h2>
+                <div class="bucket-grid" id="bucketList">
+                    <!-- Buckets will be rendered here -->
+                </div>
+            </div>
+
+            <div class="warning-box" id="cashflowWarning" style="display: none;">
+                <div style="font-weight: 600;">⚠️ Cashflow Alert</div>
+                <div id="cashflowMessage">Your current income may not cover all obligations. Consider reviewing your subscriptions.</div>
+            </div>
+        </div>
+
+        <!-- Quick Entry Section -->
+        <div id="quick-entry" class="section">
+            <div class="form-section">
+                <h2>Log Client Visit</h2>
+                <form id="clientVisitForm" class="form-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" id="clientName" required placeholder="Enter client name" list="clientNameList">
+                            <datalist id="clientNameList"></datalist>
+                        </div>
+                        <div class="form-group">
+                            <label>Visit Type</label>
+                            <select id="visitType" onchange="updateServiceOptions()">
+                                <option value="walkin">Walk-in Service</option>
+                                <option value="member">Membership Service</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="membershipSection" style="display: none;">
+                        <label>Membership Package</label>
+                        <select id="membershipPackage">
+                            <option value="">Select Package</option>
+                            <option value="oracle">Oracle Package</option>
+                            <option value="folical">Folical Master Experience</option>
+                            <option value="magic">Magic Makeover</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Services Rendered</label>
+                        <select id="services" multiple style="height: 120px;">
+                            <option value="signature_haircut">Signature Haircut - $45</option>
+                            <option value="royal_beard">Royal Beard Sculpting - $25</option>
+                            <option value="precision_lineup">Precision Line Up - $30</option>
+                            <option value="hot_shave">Executive Hot Shave - $35</option>
+                            <option value="hair_color">Premium Hair Color - $75</option>
+                            <option value="artistic_design">Artistic Design - $25</option>
+                            <option value="facial_treatment">Facial Treatment - $50</option>
+                            <option value="stress_relief">Stress Relief Massage - $40</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Service Amount</label>
+                            <input type="number" id="amount" required placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Tip</label>
+                            <input type="number" id="tip" placeholder="0.00" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <select id="paymentMethod" required>
+                                <option value="cash">Cash</option>
+                                <option value="card">Card</option>
+                                <option value="zelle">Zelle</option>
+                                <option value="cashapp">Cash App</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time</label>
+                            <input type="datetime-local" id="visitDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes (Conversation, Preferences, Special Requests)</label>
+                        <textarea id="notes" rows="3" placeholder="Document the transformation journey..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Log Visit & Allocate Funds</button>
+                </form>
+            </div>
+
+            <div class="success-box" id="upsellBox">
+                <div style="font-weight: 600;">💡 Transformation Opportunity</div>
+                <div id="upsellSuggestion">Consider offering a stress relief massage or facial treatment to complete the royal experience!</div>
+            </div>
+        </div>
+
+        <!-- Clients Section -->
+        <div id="clients" class="section">
+            <div class="form-section">
+                <h2>Royal Client Database</h2>
+                <input type="text" id="clientSearch" placeholder="Search your kings..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid var(--border); border-radius: 8px;">
+                <div class="client-list" id="clientList">
+                    <!-- Client list will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Memberships Section -->
+        <div id="memberships" class="section">
+            <div class="form-section">
+                <h2>Membership Packages</h2>
+                <div class="package-grid">
+                    <div class="package-card">
+                        <div class="service-icon">👑</div>
+                        <div class="package-title">Oracle Package</div>
+                        <div class="package-price">$350/mo</div>
+                        <ul class="package-features">
+                            <li>✓ Monthly Image Mastery Sessions</li>
+                            <li>✓ Unlimited Touch-up Services</li>
+                            <li>✓ Priority Scheduling</li>
+                            <li>✓ Quarterly Image Strategy Planning</li>
+                            <li>✓ Complete Spa Treatment Access</li>
+                            <li>✓ Premium Grooming Products Suite</li>
+                        </ul>
+                        <button class="btn btn-primary btn-block" onclick="showNewMemberModal('oracle')">Enroll King</button>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="service-icon">💼</div>
+                        <div class="package-title">Folical Master Experience</div>
+                        <div class="package-price">$250/mo</div>
+                        <ul class="package-features">
+                            <li>✓ Bi-weekly Precision Grooming</li>
+                            <li>✓ Monthly Facial Treatments</li>
+                            <li>✓ Stress-Relief Massage</li>
+                            <li>✓ VIP Beverage Service</li>
+                            <li>✓ Exclusive Product Selection</li>
+                        </ul>
+                        <button class="btn btn-primary btn-block" onclick="showNewMemberModal('folical')">Enroll King</button>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="service-icon">✨</div>
+                        <div class="package-title">Magic Makeover</div>
+                        <div class="package-price">$150/mo</div>
+                        <ul class="package-features">
+                            <li>✓ Monthly Signature Grooming</li>
+                            <li>✓ Basic Spa Services</li>
+                            <li>✓ Product Consultation</li>
+                            <li>✓ Refreshment Service</li>
+                        </ul>
+                        <button class="btn btn-primary btn-block" onclick="showNewMemberModal('magic')">Enroll King</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Active Members</h2>
+                <div class="client-list" id="memberList">
+                    <!-- Member list will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Finances Section -->
+        <div id="finances" class="section">
+            <div class="form-section">
+                <h2>Financial Overview</h2>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-title">Household Essentials</div>
+                        <div class="card-value" id="householdAmount">$0</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="householdProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="card-subtitle">$<span id="householdCurrent">0</span> of $400 target</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Doctorate Repayment</div>
+                        <div class="card-value" id="doctorateAmount">$0</div>
+                        <div class="card-subtitle" id="doctorateStatus">Next payment due: --</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">ILM Repayment</div>
+                        <div class="card-value" id="ilmAmount">$0</div>
+                        <div class="card-subtitle" id="ilmStatus">Status: --</div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Recurring Bills & Subscriptions</h3>
+                <div class="bucket-grid" id="recurringBillsList">
+                    <!-- Recurring bills will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="history" class="section">
+            <div class="form-section">
+                <h2>Financial History</h2>
+                <div class="month-selector">
+                    <button class="month-btn" onclick="showMonth('january')">January</button>
+                    <button class="month-btn" onclick="showMonth('february')">February</button>
+                    <button class="month-btn" onclick="showMonth('march')">March</button>
+                    <button class="month-btn" onclick="showMonth('april')">April</button>
+                    <button class="month-btn" onclick="showMonth('may')">May</button>
+                    <button class="month-btn active" onclick="showMonth('june')">June</button>
+                </div>
+                
+                <div id="monthlyHistoryContent">
+                    <!-- Monthly history will be rendered here -->
+                </div>
+                
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Transaction history will be rendered here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings" class="section">
+            <div class="form-section">
+                <h2>Business Settings</h2>
+                <h3>Financial Envelopes</h3>
+                <div class="form-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Household Essentials Target</label>
+                            <input type="number" id="householdTarget" value="400" placeholder="400">
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Income Goal</label>
+                            <input type="number" id="monthlyIncomeGoal" value="3000" placeholder="3000">
+                        </div>
+                    </div>
+                    
+                    <h4>Repayment Settings</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Doctorate Monthly Payment</label>
+                            <input type="number" id="doctoratePayment" value="250" placeholder="250">
+                        </div>
+                        <div class="form-group">
+                            <label>ILM Monthly Payment</label>
+                            <input type="number" id="ilmPayment" value="300" placeholder="300">
+                        </div>
+                    </div>
+                    
+                    <h4>Catch-up Amounts</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Doctorate Catch-up Balance</label>
+                            <input type="number" id="doctorateCatchup" value="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>ILM Catch-up Balance</label>
+                            <input type="number" id="ilmCatchup" value="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px;">Service Pricing</h3>
+                <div class="form-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Signature Haircut</label>
+                            <input type="number" id="priceHaircut" value="45" placeholder="45">
+                        </div>
+                        <div class="form-group">
+                            <label>Royal Beard Sculpting</label>
+                            <input type="number" id="priceBeard" value="25" placeholder="25">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precision Line Up</label>
+                            <input type="number" id="priceLineup" value="30" placeholder="30">
+                        </div>
+                        <div class="form-group">
+                            <label>Executive Hot Shave</label>
+                            <input type="number" id="priceShave" value="35" placeholder="35">
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px;">Recurring Bills</h3>
+                <div id="recurringBillsSettings">
+                    <!-- Recurring bills settings will be rendered here -->
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Button -->
+    <div class="export-btn" onclick="exportData()">
+        📊
+    </div>
+
+    <!-- Client Modal -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalClientName">Client Details</h2>
+                <span class="modal-close" onclick="closeModal('clientModal')">&times;</span>
+            </div>
+            <div id="modalClientDetails">
+                <!-- Client details will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- New Member Modal -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Enroll New Member</h2>
+                <span class="modal-close" onclick="closeModal('memberModal')">&times;</span>
+            </div>
+            <form id="newMemberForm" onsubmit="enrollMember(event)">
+                <input type="hidden" id="selectedPackage" value="">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="memberName" required placeholder="Enter client name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="memberEmail" placeholder="client@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="memberPhone" placeholder="(555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="memberStartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Billing Day</label>
+                        <select id="billingDay">
+                            <option value="1">1st of month</option>
+                            <option value="15">15th of month</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Enroll Member</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // App State with Historical Data
+        let appData = {
+            clients: [],
+            transactions: [],
+            members: [],
+            buckets: {
+                household: { name: 'Household Essentials', target: 400, current: 0 },
+                doctorate: { name: 'Doctorate Repayment', target: 250, current: 0, catchup: 0 },
+                ilm: { name: 'ILM Repayment', target: 300, current: 0, catchup: 0 },
+                bills: { name: 'Recurring Bills', target: 100, current: 0 },
+                discretionary: { name: 'Discretionary/Business', target: 0, current: 0 }
+            },
+            recurringBills: [
+                { name: 'Apple.Com/Bill', amount: 39.89, active: true },
+                { name: 'Google YouTubePremium', amount: 14.83, active: true },
+                { name: 'OpenAI', amount: 20.00, active: true },
+                { name: 'Anthropic', amount: 20.00, active: true },
+                { name: 'Americansalon', amount: 342.40, active: true },
+                { name: 'GlossGenius', amount: 24.00, active: true },
+                { name: 'Lincoln Heritage', amount: 15.63, active: true }
+            ],
+            settings: {
+                services: {
+                    signature_haircut: 45,
+                    royal_beard: 25,
+                    precision_lineup: 30,
+                    hot_shave: 35,
+                    hair_color: 75,
+                    artistic_design: 25,
+                    facial_treatment: 50,
+                    stress_relief: 40
+                },
+                monthlyGoal: 3000,
+                packages: {
+                    oracle: { name: 'Oracle Package', price: 350 },
+                    folical: { name: 'Folical Master Experience', price: 250 },
+                    magic: { name: 'Magic Makeover', price: 150 }
+                }
+            },
+            historicalData: {
+                january: { income: 350, expenses: 514.63, clients: 8 },
+                february: { income: 548.08, expenses: 556.12, clients: 12 },
+                march: { income: 2867.29, expenses: 2073.04, clients: 45 },
+                april: { income: 3200, expenses: 1775.13, clients: 52 },
+                may: { income: 2800, expenses: 1832.13, clients: 48 },
+                june: { income: 2429, expenses: 1324, clients: 41 }
+            }
+        };
+
+        // Initialize dates
+        function initializeDates() {
+            const now = new Date();
+            document.getElementById('visitDate').value = now.toISOString().slice(0, 16);
+            document.getElementById('memberStartDate').valueAsDate = now;
+        }
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('kingspaData');
+            if (saved) {
+                const parsedData = JSON.parse(saved);
+                // Merge saved data with default structure
+                appData = { ...appData, ...parsedData };
+            }
+            
+            // Initialize with historical balances if first load
+            if (appData.transactions.length === 0) {
+                initializeHistoricalBalances();
+            }
+            
+            updateDashboard();
+            updateClientDatalist();
+        }
+
+        // Initialize historical balances
+        function initializeHistoricalBalances() {
+            // Set starting balances based on June 2025 data
+            appData.buckets.household.current = 400;
+            appData.buckets.doctorate.current = 225;
+            appData.buckets.ilm.current = 50;
+            appData.buckets.doctorate.catchup = 0; // Caught up by June
+            appData.buckets.ilm.catchup = 0; // Caught up by June
+            
+            showNotification('Welcome! Your financial data has been initialized with June 2025 balances.');
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('kingspaData', JSON.stringify(appData));
+        }
+
+        // Show section
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update section-specific content
+            if (sectionId === 'clients') {
+                renderClients();
+            } else if (sectionId === 'dashboard') {
+                updateDashboard();
+            } else if (sectionId === 'memberships') {
+                renderMembers();
+            } else if (sectionId === 'finances') {
+                updateFinances();
+            } else if (sectionId === 'history') {
+                renderHistory();
+            } else if (sectionId === 'settings') {
+                loadSettings();
+            }
+        }
+
+        // Handle client visit form
+        document.getElementById('clientVisitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                clientName: document.getElementById('clientName').value,
+                visitType: document.getElementById('visitType').value,
+                membershipPackage: document.getElementById('membershipPackage').value,
+                services: Array.from(document.getElementById('services').selectedOptions).map(o => ({
+                    value: o.value,
+                    text: o.text
+                })),
+                amount: parseFloat(document.getElementById('amount').value),
+                tip: parseFloat(document.getElementById('tip').value) || 0,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                notes: document.getElementById('notes').value,
+                date: document.getElementById('visitDate').value
+            };
+            
+            // Add transaction
+            appData.transactions.push(formData);
+            
+            // Update or create client
+            let client = appData.clients.find(c => c.name.toLowerCase() === formData.clientName.toLowerCase());
+            if (!client) {
+                client = {
+                    name: formData.clientName,
+                    visits: [],
+                    totalSpent: 0,
+                    totalTips: 0,
+                    lastVisit: formData.date,
+                    preferences: []
+                };
+                appData.clients.push(client);
+            }
+            
+            client.visits.push({
+                date: formData.date,
+                services: formData.services,
+                amount: formData.amount,
+                tip: formData.tip,
+                notes: formData.notes,
+                paymentMethod: formData.paymentMethod
+            });
+            
+            client.totalSpent += formData.amount;
+            client.totalTips += formData.tip;
+            client.lastVisit = formData.date;
+            
+            // Extract preferences from notes
+            if (formData.notes) {
+                const preferences = formData.notes.match(/likes?\s+(\w+)/gi);
+                if (preferences) {
+                    client.preferences = [...new Set([...client.preferences, ...preferences])];
+                }
+            }
+            
+            // Allocate funds to buckets
+            allocateFunds(formData.amount + formData.tip);
+            
+            // Save and update
+            saveData();
+            updateDashboard();
+            updateClientDatalist();
+            
+            // Reset form
+            document.getElementById('clientVisitForm').reset();
+            initializeDates();
+            
+            // Show success message
+            showNotification(`Royal transformation logged for ${formData.clientName}! 👑`);
+            
+            // Update upsell suggestion
+            updateUpsellSuggestion(formData.services);
+        });
+
+        // Allocate funds to buckets
+        function allocateFunds(totalAmount) {
+            const allocation = {
+                household: 0.20,      // 20% to household
+                doctorate: 0.15,      // 15% to doctorate
+                ilm: 0.15,           // 15% to ILM
+                bills: 0.10,         // 10% to recurring bills
+                discretionary: 0.40  // 40% to discretionary/business
+            };
+            
+            Object.keys(allocation).forEach(key => {
+                appData.buckets[key].current += totalAmount * allocation[key];
+            });
+            
+            // Check if we need to make catch-up payments
+            checkCatchupPayments();
+        }
+
+        // Check and apply catch-up payments
+        function checkCatchupPayments() {
+            // Check doctorate catch-up
+            if (appData.buckets.doctorate.catchup > 0 && appData.buckets.discretionary.current > 50) {
+                const catchupAmount = Math.min(appData.buckets.doctorate.catchup, appData.buckets.discretionary.current * 0.5);
+                appData.buckets.doctorate.catchup -= catchupAmount;
+                appData.buckets.discretionary.current -= catchupAmount;
+            }
+            
+            // Check ILM catch-up
+            if (appData.buckets.ilm.catchup > 0 && appData.buckets.discretionary.current > 50) {
+                const catchupAmount = Math.min(appData.buckets.ilm.catchup, appData.buckets.discretionary.current * 0.3);
+                appData.buckets.ilm.catchup -= catchupAmount;
+                appData.buckets.discretionary.current -= catchupAmount;
+            }
+        }
+
+        // Update dashboard
+        function updateDashboard() {
+            // Calculate today's income
+            const today = new Date().toDateString();
+            const todayTransactions = appData.transactions.filter(t => 
+                new Date(t.date).toDateString() === today
+            );
+            const todayIncome = todayTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+            document.getElementById('todayIncome').textContent = `${todayIncome.toFixed(2)}`;
+            document.getElementById('todayClients').textContent = todayTransactions.length;
+            
+            // Calculate week income
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const weekTransactions = appData.transactions.filter(t => 
+                new Date(t.date) >= weekAgo
+            );
+            const weekIncome = weekTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+            document.getElementById('weekIncome').textContent = `${weekIncome.toFixed(2)}`;
+            document.getElementById('weekClients').textContent = weekTransactions.length;
+            
+            // Calculate monthly progress
+            const monthStart = new Date();
+            monthStart.setDate(1);
+            const monthTransactions = appData.transactions.filter(t => 
+                new Date(t.date) >= monthStart
+            );
+            const monthIncome = monthTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+            document.getElementById('monthlyProgress').textContent = `${monthIncome.toFixed(2)}`;
+            document.getElementById('monthlyProgressAmount').textContent = monthIncome.toFixed(2);
+            document.getElementById('monthlyGoal').textContent = appData.settings.monthlyGoal;
+            
+            // Update progress bar
+            const progressPercent = (monthIncome / appData.settings.monthlyGoal) * 100;
+            document.getElementById('monthlyProgressBar').style.width = `${Math.min(progressPercent, 100)}%`;
+            
+            // Update membership stats
+            const activeMembers = appData.members.filter(m => m.active).length;
+            const recurringRevenue = appData.members
+                .filter(m => m.active)
+                .reduce((sum, m) => sum + appData.settings.packages[m.package].price, 0);
+            document.getElementById('activeMemberships').textContent = activeMembers;
+            document.getElementById('recurringRevenue').textContent = recurringRevenue.toFixed(2);
+            
+            // Update balances
+            updateBalances();
+            
+            // Render buckets
+            renderBuckets();
+            
+            // Check cashflow warning
+            checkCashflowWarning();
+        }
+
+        // Update balances
+        function updateBalances() {
+            const cashTransactions = appData.transactions.filter(t => t.paymentMethod === 'cash');
+            const digitalTransactions = appData.transactions.filter(t => t.paymentMethod !== 'cash');
+            
+            const cashBalance = cashTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+            const digitalBalance = digitalTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+            const totalBalance = cashBalance + digitalBalance;
+            
+            // Calculate pending obligations
+            const totalRecurring = appData.recurringBills
+                .filter(b => b.active)
+                .reduce((sum, b) => sum + b.amount, 0);
+            const repaymentDue = appData.buckets.doctorate.target + appData.buckets.ilm.target;
+            const pendingObligations = totalRecurring + repaymentDue + appData.buckets.household.target;
+            
+            document.getElementById('cashBalance').textContent = `${cashBalance.toFixed(2)}`;
+            document.getElementById('digitalBalance').textContent = `${digitalBalance.toFixed(2)}`;
+            document.getElementById('totalBalance').textContent = `${totalBalance.toFixed(2)}`;
+            document.getElementById('pendingObligations').textContent = `${pendingObligations.toFixed(2)}`;
+        }
+
+        // Render buckets
+        function renderBuckets() {
+            const bucketList = document.getElementById('bucketList');
+            bucketList.innerHTML = '';
+            
+            Object.entries(appData.buckets).forEach(([key, bucket]) => {
+                const progress = bucket.target > 0 ? (bucket.current / bucket.target) * 100 : 0;
+                const catchupText = bucket.catchup > 0 ? ` (Catch-up: ${bucket.catchup.toFixed(2)})` : '';
+                
+                bucketList.innerHTML += `
+                    <div class="bucket-item">
+                        <div class="bucket-header">
+                            <span class="bucket-name">${bucket.name}</span>
+                            <span class="bucket-amount">${bucket.current.toFixed(2)}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${Math.min(progress, 100)}%"></div>
+                        </div>
+                        <div class="bucket-target">
+                            ${bucket.target > 0 ? `${bucket.current.toFixed(2)} of ${bucket.target} target${catchupText}` : 'No target set'}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Check cashflow warning
+        function checkCashflowWarning() {
+            const monthlyIncome = calculateMonthlyAverage();
+            const monthlyObligations = calculateMonthlyObligations();
+            
+            const warningBox = document.getElementById('cashflowWarning');
+            const warningMessage = document.getElementById('cashflowMessage');
+            
+            if (monthlyIncome < monthlyObligations) {
+                warningBox.style.display = 'block';
+                const deficit = monthlyObligations - monthlyIncome;
+                warningMessage.textContent = `Current monthly average (${monthlyIncome.toFixed(2)}) is ${deficit.toFixed(2)} short of obligations. Consider pausing Americansalon ($342.40/mo) or other non-essential subscriptions.`;
+            } else {
+                warningBox.style.display = 'none';
+            }
+        }
+
+        // Calculate monthly average income
+        function calculateMonthlyAverage() {
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            
+            const recentTransactions = appData.transactions.filter(t => 
+                new Date(t.date) >= thirtyDaysAgo
+            );
+            
+            return recentTransactions.reduce((sum, t) => sum + t.amount + t.tip, 0);
+        }
+
+        // Calculate monthly obligations
+        function calculateMonthlyObligations() {
+            const recurringTotal = appData.recurringBills
+                .filter(b => b.active)
+                .reduce((sum, b) => sum + b.amount, 0);
+            
+            return recurringTotal + 
+                   appData.buckets.household.target +
+                   appData.buckets.doctorate.target +
+                   appData.buckets.ilm.target;
+        }
+
+        // Render clients
+        function renderClients() {
+            const clientList = document.getElementById('clientList');
+            const searchTerm = document.getElementById('clientSearch').value.toLowerCase();
+            
+            clientList.innerHTML = '';
+            
+            const filteredClients = appData.clients.filter(client => 
+                client.name.toLowerCase().includes(searchTerm)
+            );
+            
+            filteredClients.forEach(client => {
+                const lastVisit = client.visits[client.visits.length - 1];
+                const memberInfo = appData.members.find(m => m.clientName === client.name);
+                const badgeHtml = memberInfo ? `<span class="client-badge badge-${memberInfo.package}">${appData.settings.packages[memberInfo.package].name}</span>` : '';
+                
+                clientList.innerHTML += `
+                    <div class="client-item" onclick="showClientDetails('${client.name}')">
+                        <div class="client-name">
+                            ${client.name}
+                            ${badgeHtml}
+                        </div>
+                        <div class="client-details">
+                            Last visit: ${lastVisit ? new Date(lastVisit.date).toLocaleDateString() : 'N/A'} | 
+                            Total spent: ${client.totalSpent.toFixed(2)} | 
+                            Visits: ${client.visits.length} |
+                            Avg ticket: ${client.visits.length > 0 ? (client.totalSpent / client.visits.length).toFixed(2) : '0.00'}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Show client details
+        function showClientDetails(clientName) {
+            const client = appData.clients.find(c => c.name === clientName);
+            if (!client) return;
+            
+            document.getElementById('modalClientName').textContent = client.name;
+            const detailsDiv = document.getElementById('modalClientDetails');
+            
+            const avgTicket = client.visits.length > 0 ? (client.totalSpent / client.visits.length).toFixed(2) : '0.00';
+            const avgTip = client.visits.length > 0 ? (client.totalTips / client.visits.length).toFixed(2) : '0.00';
+            
+            detailsDiv.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <strong>Total Spent:</strong> ${client.totalSpent.toFixed(2)}<br>
+                    <strong>Total Tips:</strong> ${client.totalTips.toFixed(2)}<br>
+                    <strong>Average Ticket:</strong> ${avgTicket}<br>
+                    <strong>Average Tip:</strong> ${avgTip}<br>
+                    <strong>Total Visits:</strong> ${client.visits.length}<br>
+                    ${client.preferences.length > 0 ? `<strong>Preferences:</strong> ${client.preferences.join(', ')}` : ''}
+                </div>
+                <h3>Visit History</h3>
+            `;
+            
+            client.visits.slice().reverse().forEach(visit => {
+                const services = visit.services.map(s => s.text || s).join(', ');
+                detailsDiv.innerHTML += `
+                    <div class="bucket-item" style="margin-bottom: 10px;">
+                        <strong>${new Date(visit.date).toLocaleDateString()}</strong><br>
+                        Services: ${services}<br>
+                        Amount: ${visit.amount.toFixed(2)} + ${visit.tip.toFixed(2)} tip<br>
+                        Payment: ${visit.paymentMethod}<br>
+                        ${visit.notes ? `Notes: ${visit.notes}` : ''}
+                    </div>
+                `;
+            });
+            
+            document.getElementById('clientModal').classList.add('active');
+        }
+
+        // Update service options based on visit type
+        function updateServiceOptions() {
+            const visitType = document.getElementById('visitType').value;
+            const membershipSection = document.getElementById('membershipSection');
+            
+            if (visitType === 'member') {
+                membershipSection.style.display = 'block';
+            } else {
+                membershipSection.style.display = 'none';
+                document.getElementById('membershipPackage').value = '';
+            }
+        }
+
+        // Show new member modal
+        function showNewMemberModal(packageType) {
+            document.getElementById('selectedPackage').value = packageType;
+            document.getElementById('memberModal').classList.add('active');
+        }
+
+        // Enroll member
+        function enrollMember(event) {
+            event.preventDefault();
+            
+            const memberData = {
+                clientName: document.getElementById('memberName').value,
+                email: document.getElementById('memberEmail').value,
+                phone: document.getElementById('memberPhone').value,
+                package: document.getElementById('selectedPackage').value,
+                startDate: document.getElementById('memberStartDate').value,
+                billingDay: parseInt(document.getElementById('billingDay').value),
+                active: true,
+                joinDate: new Date().toISOString()
+            };
+            
+            appData.members.push(memberData);
+            
+            // Create client if doesn't exist
+            if (!appData.clients.find(c => c.name === memberData.clientName)) {
+                appData.clients.push({
+                    name: memberData.clientName,
+                    visits: [],
+                    totalSpent: 0,
+                    totalTips: 0,
+                    lastVisit: null,
+                    preferences: []
+                });
+            }
+            
+            saveData();
+            updateDashboard();
+            renderMembers();
+            closeModal('memberModal');
+            showNotification(`${memberData.clientName} enrolled in ${appData.settings.packages[memberData.package].name}! 👑`);
+            
+            // Reset form
+            document.getElementById('newMemberForm').reset();
+        }
+
+        // Render members
+        function renderMembers() {
+            const memberList = document.getElementById('memberList');
+            memberList.innerHTML = '';
+            
+            const activeMembers = appData.members.filter(m => m.active);
+            
+            activeMembers.forEach(member => {
+                const packageInfo = appData.settings.packages[member.package];
+                memberList.innerHTML += `
+                    <div class="client-item">
+                        <div class="client-name">
+                            ${member.clientName}
+                            <span class="client-badge badge-${member.package}">${packageInfo.name}</span>
+                        </div>
+                        <div class="client-details">
+                            Package: ${packageInfo.price}/mo | 
+                            Billing: ${member.billingDay}${member.billingDay === 1 ? 'st' : 'th'} of month | 
+                            Member since: ${new Date(member.startDate).toLocaleDateString()}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if (activeMembers.length === 0) {
+                memberList.innerHTML = '<p style="text-align: center; color: #999;">No active members yet. Enroll your first king above!</p>';
+            }
+        }
+
+        // Update finances section
+        function updateFinances() {
+            // Update household
+            const householdBucket = appData.buckets.household;
+            document.getElementById('householdAmount').textContent = `${householdBucket.current.toFixed(2)}`;
+            document.getElementById('householdCurrent').textContent = householdBucket.current.toFixed(2);
+            document.getElementById('householdProgress').style.width = `${(householdBucket.current / householdBucket.target) * 100}%`;
+            
+            // Update doctorate
+            const doctorateBucket = appData.buckets.doctorate;
+            document.getElementById('doctorateAmount').textContent = `${doctorateBucket.current.toFixed(2)}`;
+            document.getElementById('doctorateStatus').textContent = doctorateBucket.catchup > 0 ? 
+                `Catch-up needed: ${doctorateBucket.catchup.toFixed(2)}` : 'On track ✓';
+            
+            // Update ILM
+            const ilmBucket = appData.buckets.ilm;
+            document.getElementById('ilmAmount').textContent = `${ilmBucket.current.toFixed(2)}`;
+            document.getElementById('ilmStatus').textContent = ilmBucket.catchup > 0 ? 
+                `Catch-up needed: ${ilmBucket.catchup.toFixed(2)}` : 'On track ✓';
+            
+            // Render recurring bills
+            renderRecurringBills();
+        }
+
+        // Render recurring bills
+        function renderRecurringBills() {
+            const billsList = document.getElementById('recurringBillsList');
+            billsList.innerHTML = '';
+            
+            appData.recurringBills.forEach((bill, index) => {
+                const funded = bill.amount <= appData.buckets.bills.current;
+                billsList.innerHTML += `
+                    <div class="bucket-item">
+                        <div class="bucket-header">
+                            <span class="bucket-name">${bill.name}</span>
+                            <span class="bucket-amount ${funded ? 'success' : 'danger'}" style="color: ${funded ? 'var(--success)' : 'var(--danger)'}">
+                                ${bill.amount.toFixed(2)}/mo
+                            </span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${funded ? '100' : '0'}%; background: ${funded ? 'var(--success)' : 'var(--danger)'}"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span style="font-size: 12px; color: #666;">${bill.active ? 'Active' : 'Paused'}</span>
+                            <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;" onclick="toggleBill(${index})">
+                                ${bill.active ? 'Pause' : 'Resume'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Toggle bill active status
+        function toggleBill(index) {
+            appData.recurringBills[index].active = !appData.recurringBills[index].active;
+            saveData();
+            updateFinances();
+            checkCashflowWarning();
+            showNotification(`${appData.recurringBills[index].name} ${appData.recurringBills[index].active ? 'resumed' : 'paused'}`);
+        }
+
+        // Render history
+        function renderHistory() {
+            showMonth('june'); // Default to current month
+            renderTransactionTable();
+        }
+
+        // Show month history
+        function showMonth(month) {
+            // Update active button
+            document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const historyContent = document.getElementById('monthlyHistoryContent');
+            const monthData = appData.historicalData[month];
+            
+            if (monthData) {
+                historyContent.innerHTML = `
+                    <div class="financial-summary">
+                        <h3>${month.charAt(0).toUpperCase() + month.slice(1)} 2025 Summary</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Income</div>
+                                <div class="summary-value">${monthData.income.toFixed(2)}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Total Expenses</div>
+                                <div class="summary-value">${monthData.expenses.toFixed(2)}</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Net Result</div>
+                                <div class="summary-value" style="color: ${monthData.income - monthData.expenses >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                                    ${(monthData.income - monthData.expenses).toFixed(2)}
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Clients Served</div>
+                                <div class="summary-value">${monthData.clients}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render transaction table
+        function renderTransactionTable() {
+            const tableBody = document.getElementById('historyTableBody');
+            tableBody.innerHTML = '';
+            
+            // Sort transactions by date (newest first)
+            const sortedTransactions = [...appData.transactions].sort((a, b) => 
+                new Date(b.date) - new Date(a.date)
+            );
+            
+            sortedTransactions.slice(0, 50).forEach(transaction => {
+                const services = transaction.services.map(s => s.text || s).join(', ');
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${new Date(transaction.date).toLocaleDateString()}</td>
+                        <td>${transaction.clientName}</td>
+                        <td>${services}</td>
+                        <td>${(transaction.amount + transaction.tip).toFixed(2)}</td>
+                        <td>${transaction.paymentMethod}</td>
+                        <td><span style="color: var(--success)">✓ Complete</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Load settings
+        function loadSettings() {
+            document.getElementById('householdTarget').value = appData.buckets.household.target;
+            document.getElementById('monthlyIncomeGoal').value = appData.settings.monthlyGoal;
+            document.getElementById('doctoratePayment').value = appData.buckets.doctorate.target;
+            document.getElementById('ilmPayment').value = appData.buckets.ilm.target;
+            document.getElementById('doctorateCatchup').value = appData.buckets.doctorate.catchup || 0;
+            document.getElementById('ilmCatchup').value = appData.buckets.ilm.catchup || 0;
+            
+            // Load service prices
+            document.getElementById('priceHaircut').value = appData.settings.services.signature_haircut;
+            document.getElementById('priceBeard').value = appData.settings.services.royal_beard;
+            document.getElementById('priceLineup').value = appData.settings.services.precision_lineup;
+            document.getElementById('priceShave').value = appData.settings.services.hot_shave;
+            
+            // Render recurring bills settings
+            const billsSettings = document.getElementById('recurringBillsSettings');
+            billsSettings.innerHTML = '';
+            
+            appData.recurringBills.forEach((bill, index) => {
+                billsSettings.innerHTML += `
+                    <div class="form-row" style="margin-bottom: 10px;">
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" value="${bill.name}" onchange="updateBillName(${index}, this.value)" placeholder="Bill name">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <input type="number" value="${bill.amount}" onchange="updateBillAmount(${index}, this.value)" placeholder="Amount" step="0.01">
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Update bill name
+        function updateBillName(index, value) {
+            appData.recurringBills[index].name = value;
+        }
+
+        // Update bill amount
+        function updateBillAmount(index, value) {
+            appData.recurringBills[index].amount = parseFloat(value) || 0;
+        }
+
+        // Save settings
+        function saveSettings() {
+            appData.buckets.household.target = parseFloat(document.getElementById('householdTarget').value);
+            appData.settings.monthlyGoal = parseFloat(document.getElementById('monthlyIncomeGoal').value);
+            appData.buckets.doctorate.target = parseFloat(document.getElementById('doctoratePayment').value);
+            appData.buckets.ilm.target = parseFloat(document.getElementById('ilmPayment').value);
+            appData.buckets.doctorate.catchup = parseFloat(document.getElementById('doctorateCatchup').value) || 0;
+            appData.buckets.ilm.catchup = parseFloat(document.getElementById('ilmCatchup').value) || 0;
+            
+            // Save service prices
+            appData.settings.services.signature_haircut = parseFloat(document.getElementById('priceHaircut').value);
+            appData.settings.services.royal_beard = parseFloat(document.getElementById('priceBeard').value);
+            appData.settings.services.precision_lineup = parseFloat(document.getElementById('priceLineup').value);
+            appData.settings.services.hot_shave = parseFloat(document.getElementById('priceShave').value);
+            
+            saveData();
+            updateDashboard();
+            showNotification('Settings saved successfully!');
+        }
+
+        // Update client datalist
+        function updateClientDatalist() {
+            const datalist = document.getElementById('clientNameList');
+            datalist.innerHTML = '';
+            
+            appData.clients.forEach(client => {
+                const option = document.createElement('option');
+                option.value = client.name;
+                datalist.appendChild(option);
+            });
+        }
+
+        // Client search
+        document.getElementById('clientSearch').addEventListener('input', function() {
+            renderClients();
+        });
+
+        // Update upsell suggestion
+        function updateUpsellSuggestion(selectedServices) {
+            const suggestions = {
+                haircut: ['Consider adding a royal beard sculpting for the complete look!', 'A stress relief massage pairs perfectly with a fresh cut!'],
+                beard: ['Add a hot shave for the ultimate grooming experience!', 'Facial treatment enhances your royal presence!'],
+                lineup: ['Complete the look with our signature haircut!', 'Add artistic design for unique flair!'],
+                default: ['Consider our Oracle Package for monthly transformation sessions!', 'Ask about our premium grooming products!']
+            };
+            
+            let suggestion = suggestions.default[Math.floor(Math.random() * suggestions.default.length)];
+            
+            selectedServices.forEach(service => {
+                const serviceKey = service.value || service;
+                if (serviceKey.includes('haircut') && suggestions.haircut) {
+                    suggestion = suggestions.haircut[Math.floor(Math.random() * suggestions.haircut.length)];
+                } else if (serviceKey.includes('beard') && suggestions.beard) {
+                    suggestion = suggestions.beard[Math.floor(Math.random() * suggestions.beard.length)];
+                }
+            });
+            
+            document.getElementById('upsellSuggestion').textContent = suggestion;
+        }
+
+        // Export data
+        function exportData() {
+            const exportData = {
+                businessName: 'King Spa Self-Care Center',
+                exportDate: new Date().toISOString(),
+                summary: {
+                    totalClients: appData.clients.length,
+                    activeMembers: appData.members.filter(m => m.active).length,
+                    totalTransactions: appData.transactions.length,
+                    totalRevenue: appData.transactions.reduce((sum, t) => sum + t.amount + t.tip, 0)
+                },
+                monthlyData: appData.historicalData,
+                clients: appData.clients,
+                transactions: appData.transactions,
+                members: appData.members,
+                financialBuckets: appData.buckets,
+                recurringBills: appData.recurringBills
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `kingspa_export_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Data exported successfully! 📊');
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Initialize app
+        window.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            initializeDates();
+            updateDashboard();
+        });
+
+        // Click outside modal to close
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
